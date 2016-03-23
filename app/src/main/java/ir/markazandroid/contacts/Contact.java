@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import ir.markazandroid.secretsms.R;
 
-public class Contact extends AppCompatActivity {
+public class Contact extends Activity {
 
     private SimpleCursorAdapter adapter;
     public static final int CONTACT_LOADER_ID = 8569;
