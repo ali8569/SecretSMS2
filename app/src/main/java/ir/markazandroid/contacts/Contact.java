@@ -16,6 +16,7 @@ import ir.markazandroid.secretsms.R;
 
 public class Contact extends Activity {
 
+
     private SimpleCursorAdapter adapter;
     public static final int CONTACT_LOADER_ID = 8569;
 
