@@ -1,16 +1,16 @@
 package ir.markazandroid.secretsms;
 
-import ir.markazandroid.contacts.Contact;
+import java.io.File;
+
 import ir.markazandroid.db.SmsSource;
 import ir.markazandroid.sms.SMSrsr;
-import ir.markazandroid.sms.sendSms;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,6 +24,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	EditText phone, matn;
 	Button bt, button1, contact;
 	TextView inbox, sqlview;
+	SmsManager smsmanager;
 	SmsSource smsDB;
 	SQLiteDatabase sql;
 
@@ -82,10 +83,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.bt:
+
+			smsmanager = SmsManager.getDefault();
 			String text = matn.getText().toString();
 			String phone = this.phone.getText().toString();
 			if (!phone.isEmpty() && !text.isEmpty())
-				sendSms.send(phone,text);
+				smsmanager.sendTextMessage(phone, null, text, null, null);
 			break;
 		case R.id.button1:
 			Intent intent = new Intent(this, ListSms.class);
