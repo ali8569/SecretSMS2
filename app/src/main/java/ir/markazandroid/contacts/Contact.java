@@ -9,12 +9,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import ir.markazandroid.secretsms.R;
 
-public class Contact extends Activity {
+public class Contact extends AppCompatActivity {
 
     private SimpleCursorAdapter adapter;
     public static final int CONTACT_LOADER_ID = 8569;
