@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
