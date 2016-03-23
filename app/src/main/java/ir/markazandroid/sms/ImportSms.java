@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.ContactsContract.PhoneLookup;
 
+//import sms from app database to app
 public class ImportSms {
 	public static ArrayList<Messages> listMessage2;
 	public static ArrayList<Messages> sfdg;
@@ -29,14 +30,14 @@ public class ImportSms {
 		sql = SQLiteDatabase.openDatabase(
 				"/data/data/ir.markazandroid.secretsms/databases/sms.db", null,
 				SQLiteDatabase.OPEN_READONLY);
-		cr = sql.query(SmsHelper.TABLE_SMS, null, null, null, null, null, null);
+		cr = sql.query(SmsHelper.TABLE_SMS, null, null, null, null, null, "date desc");
 		int i = 0;
 		if (cr.moveToFirst()) {
 			do {
 				number = null;
 				name = null;
 				number = cr.getString(cr.getColumnIndexOrThrow("NUMBER"));
-				body = cr.getString(cr.getColumnIndexOrThrow("RECIVE"));
+				body = cr.getString(cr.getColumnIndexOrThrow("RECEIVE"));
 				name = name(number);
 				if (name == null)
 					name = number;
