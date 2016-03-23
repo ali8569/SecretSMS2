@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.widget.Toast;
 
+//import phone sms from android database to app database
 public class SMSrsr {
 
 	private static ContentResolver cr;
@@ -28,12 +29,13 @@ public class SMSrsr {
 		SMSrsr.cr = cr;
 	}
 	
-	public static void insertNew(String  person,String  number,String  body){
+	public static void insertNew(String  person,String  number,String  body,Long date){
 		SQLiteDatabase smsDB=SmsSource.open();
 		values = new ContentValues();
+		values.put(SmsHelper.COLUMN_DATE, date);
 		values.put(SmsHelper.COLUMN_NAME, person);
 		values.put(SmsHelper.COLUMN_NUMBER, number);
-		values.put(SmsHelper.COLUMN_RECIVE, body);
+		values.put(SmsHelper.COLUMN_RECEIVE, body);
 		smsDB.insert(SmsHelper.TABLE_SMS, null, values);
 	}
 
@@ -51,13 +53,13 @@ public class SMSrsr {
 						.getColumnIndexOrThrow("address"));
 				String _id = cursor.getString(cursor
 						.getColumnIndexOrThrow("_id"));
-				String date=cursor.getString(cursor.getColumnIndexOrThrow("date"));
+				long date=cursor.getLong(cursor.getColumnIndexOrThrow("date"));
 				MainActivity.tv.setText("\n"+date);
 				values = new ContentValues();
-				values.put(SmsHelper.COLUMN_ID, _id);
+				values.put(SmsHelper.COLUMN_DATE,date);
 				values.put(SmsHelper.COLUMN_NAME, person);
 				values.put(SmsHelper.COLUMN_NUMBER, number);
-				values.put(SmsHelper.COLUMN_RECIVE, body);
+				values.put(SmsHelper.COLUMN_RECEIVE, body);
 				smsDB.insert(SmsHelper.TABLE_SMS, null, values);
 
 			} while (cursor.moveToNext());

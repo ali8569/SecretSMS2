@@ -1,5 +1,6 @@
 package ir.markazandroid.sms;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,10 @@ import android.provider.ContactsContract.PhoneLookup;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+
+//receive sms readTime and insert it to database
 public class SmsReceiver extends BroadcastReceiver {
 	String addr = "";
 	private Uri lookupUri;
@@ -18,6 +23,10 @@ public class SmsReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
+		switch (getResultCode()){
+			case Activity.RESULT_OK:
+				Toast.makeText(context,"senddddddddddddddd",Toast.LENGTH_LONG).show();
+		}
 		if (bundle != null) {
 			// get sms objects
 			Object[] pdus = (Object[]) bundle.get("pdus");
@@ -45,7 +54,9 @@ public class SmsReceiver extends BroadcastReceiver {
 				final String message = sb.toString();
 				Toast.makeText(context, message + "  " + ContactName,
 						Toast.LENGTH_SHORT).show();
-				SMSrsr.insertNew(ContactName, sender, message);
+				//add date for receive sms to insert database
+				long date=System.currentTimeMillis();
+				SMSrsr.insertNew(ContactName, sender, message,date);
 				abortBroadcast();
 			} catch (Exception e) {
 				// TODO: handle exception
