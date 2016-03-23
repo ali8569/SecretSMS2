@@ -10,6 +10,7 @@ public class ContactLoader {
 
     public ContactLoader(Context context) {
         this.context = context;
+
     }
 
 
