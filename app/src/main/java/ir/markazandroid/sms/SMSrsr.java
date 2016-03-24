@@ -35,7 +35,7 @@ public class SMSrsr {
 		values.put(SmsHelper.COLUMN_DATE, date);
 		values.put(SmsHelper.COLUMN_NAME, person);
 		values.put(SmsHelper.COLUMN_NUMBER, number);
-		values.put(SmsHelper.COLUMN_RECEIVE, body);
+		values.put(SmsHelper.COLUMN_RECIVE, body);
 		smsDB.insert(SmsHelper.TABLE_SMS, null, values);
 	}
 
@@ -53,13 +53,13 @@ public class SMSrsr {
 						.getColumnIndexOrThrow("address"));
 				String _id = cursor.getString(cursor
 						.getColumnIndexOrThrow("_id"));
-				long date=cursor.getLong(cursor.getColumnIndexOrThrow("date"));
+				String date=cursor.getString(cursor.getColumnIndexOrThrow("date"));
 				MainActivity.tv.setText("\n"+date);
 				values = new ContentValues();
-				values.put(SmsHelper.COLUMN_DATE,date);
+				values.put(SmsHelper.COLUMN_ID, _id);
 				values.put(SmsHelper.COLUMN_NAME, person);
 				values.put(SmsHelper.COLUMN_NUMBER, number);
-				values.put(SmsHelper.COLUMN_RECEIVE, body);
+				values.put(SmsHelper.COLUMN_RECIVE, body);
 				smsDB.insert(SmsHelper.TABLE_SMS, null, values);
 
 			} while (cursor.moveToNext());

@@ -2,6 +2,7 @@ package ir.markazandroid.secretsms;
 
 import java.io.File;
 
+import ir.markazandroid.contacts.Contact;
 import ir.markazandroid.db.SmsSource;
 import ir.markazandroid.sms.SMSrsr;
 import android.app.Activity;

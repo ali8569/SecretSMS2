@@ -15,7 +15,7 @@ public class SmsSource {
 		mSmsHelper = new SmsHelper(mContext);
 	}
 
-	public static SQLiteDatabase open() throws SQLException {
+	 public static SQLiteDatabase open() throws SQLException {
 		mDatabase = mSmsHelper.getWritableDatabase();
 		return mDatabase;
 	}
