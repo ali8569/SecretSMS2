@@ -26,8 +26,10 @@ public class ContactLoader {
                 @Override
                 public Loader<Cursor> onCreateLoader(int id, Bundle args) {
                     String[] projectionFields = new String[] { ContactsContract.Contacts._ID,
-                            ContactsContract.Contacts.DISPLAY_NAME,
-                            ContactsContract.Contacts.PHOTO_URI };
+                            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
+                            ContactsContract.Contacts.PHOTO_URI,
+                            ContactsContract.Contacts.LOOKUP_KEY
+                    };
                     CursorLoader cursorLoader = new CursorLoader(context,
                             ContactsContract.Contacts.CONTENT_URI, // URI
                             projectionFields, // projection fields

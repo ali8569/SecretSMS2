@@ -1,0 +1,21 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.markazandroid.secretsms.ContactChooser"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:id="@+id/contact_search_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_contact_box_hint"/>
+    <ListView
+        android:id="@+id/contact_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
+</LinearLayout>

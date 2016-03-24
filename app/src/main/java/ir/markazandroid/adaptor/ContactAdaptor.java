@@ -50,14 +50,9 @@ public class ContactAdaptor extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        ContactViewHolder holder;
-            View view=LayoutInflater.from(context).inflate(R.layout.contact,parent,false);
-            holder = new ContactViewHolder();
-            holder.iconImageView = (ImageView) view.findViewById(R.id.image);
-            holder.nameLabel = (TextView) view.findViewById(R.id.contactname);
-            view.setTag(holder);
 
-        return view;
+
+        return LayoutInflater.from(context).inflate(R.layout.contact,parent,false);
     }
 
     /**
@@ -69,8 +64,11 @@ public class ContactAdaptor extends CursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-            ContactViewHolder holder;
-             holder =(ContactViewHolder) view.getTag();
+        ContactViewHolder holder;
+        holder = new ContactViewHolder();
+        holder.iconImageView = (ImageView) view.findViewById(R.id.image);
+        holder.nameLabel = (TextView) view.findViewById(R.id.contactname);
+        view.setTag(holder);
 
             try {
                 holder.iconImageView.setImageURI(Uri.parse(cursor.getString(2)));

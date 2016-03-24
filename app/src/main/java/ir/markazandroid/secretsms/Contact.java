@@ -1,14 +1,15 @@
 package ir.markazandroid.secretsms;
 
+import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Intent;
-import android.content.Loader;
+import android.content.*;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,7 +20,7 @@ import ir.markazandroid.contacts.ContactLoader;
 import ir.markazandroid.secretsms.Message;
 import ir.markazandroid.secretsms.R;
 
-public class Contact extends Activity implements AdapterView.OnItemClickListener {
+public class Contact extends FragmentActivity implements AdapterView.OnItemClickListener, ContactChooser.OnFragmentInteractionListener {
 
 
     private ContactAdaptor adapter;
@@ -27,13 +28,16 @@ public class Contact extends Activity implements AdapterView.OnItemClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts);
+        setContentView(R.layout.fragment_layout);
         ListView list = (ListView) findViewById(R.id.contactlist);
         adapter = new ContactAdaptor(this,null,false);
         ContactLoader loader = new ContactLoader(this,adapter);
         loader.loadContacts();
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(this);
+      //  list.setAdapter(adapter);
+       // list.setOnItemClickListener(this);
+        ContactChooser contactChooser = ContactChooser.newInstance("hello","world");
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_contact_chooser, contactChooser).commit();
     }
 
   /*  private void setupCursorAdapter() {
@@ -48,9 +52,10 @@ public class Contact extends Activity implements AdapterView.OnItemClickListener
     }
     */
     public void add(View v){
-        Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+      /*  Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
         intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
         startActivity(intent);
+*/
 
     }
 
@@ -73,9 +78,25 @@ public class Contact extends Activity implements AdapterView.OnItemClickListener
        // SimpleCursorAdapter adapter = (SimpleCursorAdapter) parent.getAdapter();
         Cursor cursor = adapter.getCursor();
         cursor.moveToPosition(position);
-        Message.setNumber(cursor.getString(0));
-        Message.setMessage(cursor.getString(1));
+        Cursor c = this.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                new String[]{ContactsContract.CommonDataKinds.Phone._ID,
+                        ContactsContract.CommonDataKinds.Phone.LOOKUP_KEY,
+                        ContactsContract.CommonDataKinds.Phone.NUMBER},
+                ContactsContract.CommonDataKinds.Phone.LOOKUP_KEY+"=?",
+                new String[]{cursor.getString(3)},
+                null);
+        String s="";
+        while (c.moveToNext()){
+            s+=c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))+" / ";
+        }
+        Message.setMessage(s);
+        Message.setNumber(cursor.getString(1));
         Intent in = new Intent(this, Message.class);
         startActivity(in);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
